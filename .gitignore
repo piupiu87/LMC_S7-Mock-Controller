@@ -1,0 +1,38 @@
+## Visual Studio / .NET
+bin/
+obj/
+.vs/
+packages/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+## Build results
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+[Bb]uild/
+[Bb]uilds/
+
+## NuGet
+*.nupkg
+*.snupkg
+.nuget/
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+## ReSharper / Rider
+_ReSharper*/
+*.[Rr]e[Ss]harper
+*.DotSettings.user
+
+## Misc
+*.log
+*.tlog
+*.cache
+*.tmp
+Thumbs.db
+desktop.ini
