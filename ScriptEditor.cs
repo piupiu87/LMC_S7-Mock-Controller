@@ -48,6 +48,15 @@ namespace AdlinkMockController
             chkEnabled.Checked = _working.Enabled;
             btnColor.BackColor = _chosenColor;
 
+            cmbFireMode.DataSource = new[]
+            {
+                new { Value = ScriptFireMode.RisingEdge, Display = "Rising edge (fire once per trigger)" },
+                new { Value = ScriptFireMode.Continuous, Display = "Continuous (fire every tick while true)" }
+            }.ToList();
+            cmbFireMode.DisplayMember = "Display";
+            cmbFireMode.ValueMember   = "Value";
+            cmbFireMode.SelectedValue = _working.FireMode;
+
             BuildActionsGrid();
             BuildAllGroups();
         }
@@ -433,6 +442,8 @@ namespace AdlinkMockController
             _working.Name            = txtName.Text.Trim();
             _working.Enabled         = chkEnabled.Checked;
             _working.ButtonColor     = _chosenColor;
+            if (cmbFireMode.SelectedValue is ScriptFireMode mode)
+                _working.FireMode = mode;
             Result = _working;
             this.DialogResult = DialogResult.OK;
             this.Close();
@@ -444,8 +455,9 @@ namespace AdlinkMockController
         {
             var copy = new Script
             {
-                Name           = s.Name,
-                Enabled        = s.Enabled,
+                Name            = s.Name,
+                Enabled         = s.Enabled,
+                FireMode        = s.FireMode,
                 ButtonColorArgb = s.ButtonColorArgb
             };
             foreach (var g in s.TriggerGroups)

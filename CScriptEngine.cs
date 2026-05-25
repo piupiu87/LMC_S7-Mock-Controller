@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Newtonsoft.Json;
@@ -46,18 +47,32 @@ namespace AdlinkMockController
                 var s = _scripts[i];
                 if (!s.Enabled) { s.LastEvaluation = false; continue; }
                 bool now = Evaluate(s);
-                if (now && !s.LastEvaluation) ExecuteActions(s);
+                bool fire = s.FireMode == ScriptFireMode.Continuous
+                    ? now
+                    : now && !s.LastEvaluation;
+                if (fire) ExecuteActions(s);
                 s.LastEvaluation = now;
             }
         }
 
         public void ExecuteActions(Script s)
         {
+            // Skip if a previous run for this script is still executing — otherwise
+            // Continuous mode would stack one Task per tick (~10/s), racing the JSON
+            // mock-state file and re-issuing motion commands.
+            if (Interlocked.CompareExchange(ref s.RunningFlag, 1, 0) != 0) return;
             var actions = s.Actions.ToList();
             Task.Run(async () =>
             {
-                foreach (var a in actions)
-                    await ExecuteAction(a);
+                try
+                {
+                    foreach (var a in actions)
+                        await ExecuteAction(a);
+                }
+                finally
+                {
+                    Interlocked.Exchange(ref s.RunningFlag, 0);
+                }
             });
         }
 

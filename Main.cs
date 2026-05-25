@@ -180,6 +180,13 @@ namespace AdlinkMockController
             });
             dataGridViewScripts.Columns.Add(new DataGridViewTextBoxColumn
             {
+                HeaderText = "Mode",
+                Name = "colFireMode",
+                ReadOnly = true,
+                Width = 80
+            });
+            dataGridViewScripts.Columns.Add(new DataGridViewTextBoxColumn
+            {
                 HeaderText = "Trigger Groups",
                 Name = "colTriggerGroups",
                 ReadOnly = true,
@@ -220,6 +227,11 @@ namespace AdlinkMockController
             {
                 e.Value = s.Name;
                 e.CellStyle.BackColor = s.ButtonColor;
+                e.FormattingApplied = true;
+            }
+            else if (col.Name == "colFireMode")
+            {
+                e.Value = s.FireMode == ScriptFireMode.Continuous ? "Continuous" : "Edge";
                 e.FormattingApplied = true;
             }
             else if (col.Name == "colTriggerGroups")

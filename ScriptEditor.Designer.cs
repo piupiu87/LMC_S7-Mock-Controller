@@ -18,6 +18,8 @@ namespace AdlinkMockController
             this.chkEnabled = new System.Windows.Forms.CheckBox();
             this.lblColorHdr = new System.Windows.Forms.Label();
             this.btnColor = new System.Windows.Forms.Button();
+            this.lblFireMode = new System.Windows.Forms.Label();
+            this.cmbFireMode = new System.Windows.Forms.ComboBox();
             this.lblTriggers = new System.Windows.Forms.Label();
             this.lblTriggersHint = new System.Windows.Forms.Label();
             this.panelGroups = new System.Windows.Forms.Panel();
@@ -74,6 +76,20 @@ namespace AdlinkMockController
             this.btnColor.TabIndex = 2;
             this.btnColor.Click += new System.EventHandler(this.btnColor_Click);
             //
+            // lblFireMode
+            //
+            this.lblFireMode.AutoSize = true;
+            this.lblFireMode.Location = new System.Drawing.Point(475, 15);
+            this.lblFireMode.Name = "lblFireMode";
+            this.lblFireMode.Text = "Mode:";
+            //
+            // cmbFireMode
+            //
+            this.cmbFireMode.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbFireMode.Location = new System.Drawing.Point(515, 12);
+            this.cmbFireMode.Name = "cmbFireMode";
+            this.cmbFireMode.Size = new System.Drawing.Size(160, 21);
+            //
             // lblTriggers
             //
             this.lblTriggers.AutoSize = true;
@@ -88,7 +104,7 @@ namespace AdlinkMockController
             this.lblTriggersHint.ForeColor = System.Drawing.SystemColors.GrayText;
             this.lblTriggersHint.Location = new System.Drawing.Point(72, 45);
             this.lblTriggersHint.Name = "lblTriggersHint";
-            this.lblTriggersHint.Text = "Fires on rising edge. Groups are OR\'d; conditions within a group are AND\'d.";
+            this.lblTriggersHint.Text = "Groups are OR\'d; conditions within a group are AND\'d.";
             //
             // panelGroups
             //
@@ -202,6 +218,8 @@ namespace AdlinkMockController
             this.Controls.Add(this.chkEnabled);
             this.Controls.Add(this.lblColorHdr);
             this.Controls.Add(this.btnColor);
+            this.Controls.Add(this.lblFireMode);
+            this.Controls.Add(this.cmbFireMode);
             this.Controls.Add(this.lblTriggers);
             this.Controls.Add(this.lblTriggersHint);
             this.Controls.Add(this.panelGroups);
@@ -232,6 +250,8 @@ namespace AdlinkMockController
         private System.Windows.Forms.CheckBox chkEnabled;
         private System.Windows.Forms.Label lblColorHdr;
         private System.Windows.Forms.Button btnColor;
+        private System.Windows.Forms.Label lblFireMode;
+        private System.Windows.Forms.ComboBox cmbFireMode;
         private System.Windows.Forms.Label lblTriggers;
         private System.Windows.Forms.Label lblTriggersHint;
         private System.Windows.Forms.Panel panelGroups;

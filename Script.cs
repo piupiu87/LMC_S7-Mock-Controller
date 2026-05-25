@@ -46,6 +46,12 @@ namespace AdlinkMockController
         public List<TriggerCondition> Conditions { get; set; } = new List<TriggerCondition>();
     }
 
+    public enum ScriptFireMode
+    {
+        RisingEdge,
+        Continuous
+    }
+
     public enum ScriptActionType
     {
         IOWrite,
@@ -86,8 +92,9 @@ namespace AdlinkMockController
 
     public class Script
     {
-        public string Name    { get; set; }
-        public bool   Enabled { get; set; } = true;
+        public string         Name     { get; set; }
+        public bool           Enabled  { get; set; } = true;
+        public ScriptFireMode FireMode { get; set; } = ScriptFireMode.RisingEdge;
 
         public int ButtonColorArgb { get; set; } = System.Drawing.Color.SteelBlue.ToArgb();
 
@@ -103,5 +110,11 @@ namespace AdlinkMockController
 
         [JsonIgnore]
         public bool LastEvaluation { get; set; }
+
+        // 0 = idle, 1 = an ExecuteActions task is in flight. Used by CScriptEngine
+        // to prevent overlapping runs in Continuous mode (where Tick would
+        // otherwise spawn a new Task every ~100ms while triggers stay true).
+        [JsonIgnore]
+        public int RunningFlag;
     }
 }
