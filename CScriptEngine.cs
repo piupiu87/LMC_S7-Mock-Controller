@@ -166,6 +166,10 @@ namespace AdlinkMockController
                         CAps168.APS_get_position(c.AxisId, out actual);
                     return Compare(actual, c.Position, c.Comparator);
 
+                case TriggerType.AxisMoving:
+                    bool moving = (CAps168.APS_motion_status(c.AxisId) & (int)APS_4XMO_Motion_Status.MTS_SMV_V) != 0;
+                    return moving == c.ExpectedOn;
+
                 case TriggerType.IO:
                 default:
                     var io = Main.ioList.FirstOrDefault(x => x.shIO_ID == c.ShIOId);

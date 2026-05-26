@@ -7,7 +7,8 @@ namespace AdlinkMockController
     public enum TriggerType
     {
         IO,
-        AxisPosition
+        AxisPosition,
+        AxisMoving
     }
 
     public enum PositionComparator

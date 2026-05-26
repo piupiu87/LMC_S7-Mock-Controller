@@ -222,6 +222,8 @@ namespace AdlinkMockController
                 case TriggerType.AxisPosition:
                     return name == "colCondType" || name == "colCondAxis"
                         || name == "colCondCmp"  || name == "colCondPos" || name == "colCondSrc";
+                case TriggerType.AxisMoving:
+                    return name == "colCondType" || name == "colCondAxis" || name == "colCondExpOn";
                 case TriggerType.IO:
                 default:
                     return name == "colCondType" || name == "colCondIO" || name == "colCondExpOn";
